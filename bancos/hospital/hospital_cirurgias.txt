@@ -1,0 +1,38 @@
+% ================================================================
+% hospital_cirurgias.txt
+% ================================================================
+
+% --- Cirurgioes ---
+cirurgiao(dr_marcos, cardiaca).
+cirurgiao(dra_paula, ortopedica).
+cirurgiao(dr_renato, neurologica).
+cirurgiao(dra_sofia, plastica).
+cirurgiao(dr_tiago, geral).
+
+% --- Pacientes ---
+paciente(ana, 55).
+paciente(beto, 42).
+paciente(celia, 67).
+paciente(davi, 31).
+paciente(elisa, 73).
+
+% --- Cirurgias agendadas ---
+cirurgia(ana, dr_marcos, cardiaca).
+cirurgia(beto, dra_paula, ortopedica).
+cirurgia(celia, dr_renato, neurologica).
+cirurgia(davi, dr_tiago, geral).
+cirurgia(elisa, dr_marcos, cardiaca).
+
+% --- Equipamentos ---
+equipamento(bisturi, dr_marcos).
+equipamento(bisturi, dr_tiago).
+equipamento(parafuso_titanio, dra_paula).
+equipamento(neuromonitor, dr_renato).
+
+% --- Regras ---
+cirurgiao_cardiaco(X) :- cirurgiao(X, cardiaca).
+paciente_em_cirurgia(X) :- cirurgia(X, Y, Z).
+cirurgiao_do_paciente(X, Y) :- cirurgia(X, Y, Z).
+usa_equipamento(X, Y) :- equipamento(Y, X).
+cirurgia_de_risco(X) :- cirurgia(X, Y, cardiaca).
+cirurgia_de_risco(X) :- cirurgia(X, Y, neurologica).

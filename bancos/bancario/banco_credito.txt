@@ -1,0 +1,32 @@
+% ================================================================
+% banco_credito.txt
+% ================================================================
+
+% --- Clientes ---
+cliente(marcos, 750, ouro).
+cliente(fernanda, 620, prata).
+cliente(rodrigo, 480, bronze).
+cliente(patricia, 820, platina).
+cliente(henrique, 390, bronze).
+
+% --- Cartoes ---
+cartao(marcos, credito, 5000).
+cartao(fernanda, credito, 2000).
+cartao(rodrigo, debito, 0).
+cartao(patricia, credito, 15000).
+cartao(henrique, debito, 0).
+
+% --- Emprestimos ---
+emprestimo(marcos, 10000, aprovado).
+emprestimo(rodrigo, 5000, negado).
+emprestimo(henrique, 3000, negado).
+emprestimo(patricia, 50000, aprovado).
+
+% --- Regras ---
+bom_pagador(X) :- cliente(X, A, platina).
+bom_pagador(X) :- cliente(X, A, ouro).
+tem_credito(X) :- cartao(X, credito, Y).
+emprestimo_aprovado(X) :- emprestimo(X, Y, aprovado).
+emprestimo_negado(X) :- emprestimo(X, Y, negado).
+cliente_premium(X) :- cliente(X, A, platina).
+cliente_premium(X) :- cliente(X, A, ouro).

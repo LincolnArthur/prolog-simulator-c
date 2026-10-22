@@ -1,0 +1,51 @@
+% ================================================================
+% mitologia.txt
+% ================================================================
+
+% --- Deuses ---
+deus(zeus).
+deus(hera).
+deus(poseidon).
+deus(hades).
+deus(atena).
+deus(ares).
+deus(apolo).
+deus(artemis).
+deus(hermes).
+deus(afrodite).
+
+% --- Dominios ---
+dominio(zeus, ceu).
+dominio(zeus, trovo).
+dominio(poseidon, mar).
+dominio(hades, submundo).
+dominio(atena, sabedoria).
+dominio(ares, guerra).
+dominio(apolo, sol).
+dominio(artemis, lua).
+dominio(hermes, mensagens).
+dominio(afrodite, amor).
+
+% --- Parentesco ---
+pai(cronos, zeus).
+pai(cronos, hera).
+pai(cronos, poseidon).
+pai(cronos, hades).
+pai(zeus, atena).
+pai(zeus, ares).
+pai(zeus, apolo).
+pai(zeus, artemis).
+pai(zeus, hermes).
+
+% --- Regras ---
+% mesmo_pai(X, Y): X e Y tem o mesmo pai
+mesmo_pai(X, Y) :- pai(Z, X), pai(Z, Y).
+olimpico(X) :- dominio(X, ceu).
+olimpico(X) :- dominio(X, sabedoria).
+olimpico(X) :- dominio(X, guerra).
+olimpico(X) :- dominio(X, sol).
+olimpico(X) :- dominio(X, lua).
+olimpico(X) :- dominio(X, amor).
+olimpico(X) :- dominio(X, mensagens).
+filho_de_cronos(X) :- pai(cronos, X).
+filho_de_zeus(X) :- pai(zeus, X).

@@ -1,0 +1,35 @@
+% ================================================================
+% banco_investimentos.txt
+% ================================================================
+
+% --- Investidores ---
+investidor(ana, conservador).
+investidor(paulo, arrojado).
+investidor(lucia, moderado).
+investidor(carlos, arrojado).
+investidor(marta, conservador).
+
+% --- Produtos ---
+produto(tesouro_direto, renda_fixa, baixo).
+produto(cdb, renda_fixa, baixo).
+produto(acoes, renda_variavel, alto).
+produto(fundos, renda_variavel, medio).
+produto(debentures, renda_fixa, medio).
+
+% --- Carteiras ---
+carteira(ana, tesouro_direto).
+carteira(ana, cdb).
+carteira(paulo, acoes).
+carteira(paulo, fundos).
+carteira(lucia, fundos).
+carteira(lucia, debentures).
+carteira(carlos, acoes).
+carteira(marta, cdb).
+
+% --- Regras ---
+investe_em(X, Y) :- carteira(X, Y).
+perfil_conservador(X) :- investidor(X, conservador).
+perfil_arrojado(X) :- investidor(X, arrojado).
+investe_renda_fixa(X) :- carteira(X, Y), produto(Y, renda_fixa, Z).
+investe_renda_variavel(X) :- carteira(X, Y), produto(Y, renda_variavel, Z).
+risco_alto(X) :- carteira(X, Y), produto(Y, Z, alto).

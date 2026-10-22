@@ -1,0 +1,30 @@
+% ================================================================
+% banco_app.txt
+% ================================================================
+
+% --- Usuarios ---
+usuario(alice, 2990, premium).
+usuario(bruno, 1540, basico).
+usuario(carla, 8200, premium).
+usuario(diego, 320, basico).
+usuario(elena, 15000, vip).
+
+% --- Saldo ---
+saldo(alice, positivo).
+saldo(bruno, positivo).
+saldo(carla, positivo).
+saldo(diego, positivo).
+saldo(elena, positivo).
+
+% --- Transacoes ---
+transferiu(alice, bruno, 500).
+transferiu(carla, diego, 200).
+transferiu(elena, alice, 1000).
+
+% --- Regras ---
+cliente_vip(X) :- usuario(X, A, vip).
+cliente_premium(X) :- usuario(X, A, premium).
+pode_investir(X) :- usuario(X, A, vip).
+pode_investir(X) :- usuario(X, A, premium).
+recebeu_transferencia(X) :- transferiu(Y, X, Z).
+fez_transferencia(X) :- transferiu(X, Y, Z).

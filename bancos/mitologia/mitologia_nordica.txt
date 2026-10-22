@@ -1,0 +1,46 @@
+% ================================================================
+% mitologia_nordica.txt
+% ================================================================
+
+% --- Deuses ---
+deus(odin).
+deus(thor).
+deus(loki).
+deus(freya).
+deus(tyr).
+deus(baldur).
+deus(heimdall).
+deus(frigg).
+
+% --- Dominios ---
+dominio(odin, sabedoria).
+dominio(odin, guerra).
+dominio(thor, trovo).
+dominio(thor, forca).
+dominio(loki, trapaca).
+dominio(freya, amor).
+dominio(freya, fertilidade).
+dominio(tyr, justica).
+dominio(baldur, luz).
+dominio(heimdall, vigilancia).
+dominio(frigg, maternidade).
+
+% --- Parentesco ---
+pai(odin, thor).
+pai(odin, baldur).
+pai(odin, tyr).
+pai(loki, fenrir).
+mae(frigg, baldur).
+
+% --- Armas e itens ---
+possui(thor, mjolnir).
+possui(odin, gungnir).
+possui(odin, sleipnir).
+possui(freya, brisingamen).
+
+% --- Regras ---
+filho_de_odin(X) :- pai(odin, X).
+mesmo_pai(X, Y) :- pai(Z, X), pai(Z, Y).
+deus_da_guerra(X) :- dominio(X, guerra).
+deus_da_guerra(X) :- dominio(X, forca).
+tem_arma(X) :- possui(X, Y).

@@ -1,0 +1,41 @@
+% ================================================================
+% hospital_uti.txt
+% ================================================================
+
+% --- Medicos plantonistas ---
+plantonista(dr_fabio, manha).
+plantonista(dra_renata, tarde).
+plantonista(dr_igor, noite).
+plantonista(dra_camila, manha).
+plantonista(dr_vitor, noite).
+
+% --- Pacientes na UTI ---
+paciente_uti(jose, critico).
+paciente_uti(sara, estavel).
+paciente_uti(tomas, critico).
+paciente_uti(vera, observacao).
+paciente_uti(wilson, estavel).
+
+% --- Medicamentos ---
+medicamento(jose, morfina).
+medicamento(jose, antibiotico).
+medicamento(sara, antibiotico).
+medicamento(tomas, sedativo).
+medicamento(tomas, morfina).
+medicamento(vera, analgesico).
+
+% --- Monitoramento ---
+monitora(dr_fabio, jose).
+monitora(dra_camila, sara).
+monitora(dr_igor, tomas).
+monitora(dra_renata, vera).
+monitora(dr_vitor, wilson).
+
+% --- Regras ---
+paciente_critico(X) :- paciente_uti(X, critico).
+paciente_estavel(X) :- paciente_uti(X, estavel).
+medico_responsavel(X, Y) :- monitora(X, Y).
+usa_morfina(X) :- medicamento(X, morfina).
+usa_sedativo(X) :- medicamento(X, sedativo).
+plantao_manha(X) :- plantonista(X, manha).
+plantao_noite(X) :- plantonista(X, noite).

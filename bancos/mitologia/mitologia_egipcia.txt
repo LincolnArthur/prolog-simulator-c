@@ -1,0 +1,45 @@
+% ================================================================
+% mitologia_egipcia.txt
+% ================================================================
+
+% --- Deuses ---
+deus(ra).
+deus(osiris).
+deus(isis).
+deus(horus).
+deus(set).
+deus(anubis).
+deus(thoth).
+deus(bastet).
+
+% --- Dominios ---
+dominio(ra, sol).
+dominio(osiris, morte).
+dominio(osiris, ressureicao).
+dominio(isis, magia).
+dominio(horus, ceu).
+dominio(set, caos).
+dominio(anubis, mumificacao).
+dominio(thoth, sabedoria).
+dominio(bastet, protecao).
+
+% --- Parentesco ---
+pai(osiris, horus).
+mae(isis, horus).
+pai(ra, osiris).
+pai(ra, set).
+pai(osiris, anubis).
+
+% --- Forma animal ---
+forma(ra, falcao).
+forma(horus, falcao).
+forma(anubis, chacal).
+forma(bastet, gato).
+forma(thoth, ibis).
+
+% --- Regras ---
+filho_de_ra(X) :- pai(ra, X).
+mesmo_pai(X, Y) :- pai(Z, X), pai(Z, Y).
+tem_forma_animal(X) :- forma(X, Y).
+deus_do_submundo(X) :- dominio(X, morte).
+deus_do_submundo(X) :- dominio(X, mumificacao).

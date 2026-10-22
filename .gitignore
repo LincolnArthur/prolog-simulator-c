@@ -1,0 +1,15 @@
+# Executáveis e arquivos compilados (são gerados a partir do código, não vão para o GitHub)
+prolog_simulator
+*.exe
+*.o
+*.out
+
+# Arquivos de projeto do Dev-C++
+*.dev
+*.layout
+Makefile.win
+
+# Arquivos do sistema e do editor
+.DS_Store
+Thumbs.db
+.vscode/

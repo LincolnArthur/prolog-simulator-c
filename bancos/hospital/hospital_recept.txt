@@ -1,0 +1,42 @@
+% ================================================================
+% hospital.txt
+% ================================================================
+
+% --- Medicos ---
+medico(dra_ana, cardiologia).
+medico(dr_carlos, ortopedia).
+medico(dra_lucia, pediatria).
+medico(dr_pedro, neurologia).
+medico(dra_julia, cardiologia).
+
+% --- Pacientes ---
+paciente(joao, 45).
+paciente(maria, 32).
+paciente(lucas, 8).
+paciente(clara, 67).
+paciente(roberto, 55).
+
+% --- Consultas ---
+consulta(joao, dra_ana).
+consulta(maria, dr_carlos).
+consulta(lucas, dra_lucia).
+consulta(clara, dr_pedro).
+consulta(roberto, dra_ana).
+consulta(joao, dr_pedro).
+
+% --- Diagnosticos ---
+diagnostico(joao, hipertensao).
+diagnostico(clara, alzheimer).
+diagnostico(roberto, arritmia).
+diagnostico(lucas, gripe).
+diagnostico(maria, fratura).
+
+% --- Regras ---
+especialista(X, Y) :- medico(X, Y).
+atende_crianca(X) :- medico(X, pediatria).
+atende_coracao(X) :- medico(X, cardiologia).
+paciente_do_medico(X, Y) :- consulta(X, Y).
+medico_do_paciente(X, Y) :- consulta(Y, X).
+paciente_neurologico(X) :- consulta(X, dr_pedro).
+paciente_cardiaco(X) :- diagnostico(X, hipertensao).
+paciente_cardiaco(X) :- diagnostico(X, arritmia).

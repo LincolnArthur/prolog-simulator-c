@@ -1,9 +1,9 @@
 #include "prolog.h"
 
-/* ================================================================
- * bst.c - operacoes na Binary Search Tree de predicados
- * ================================================================ */
+//ÁRVORE BINÁRIA DE BUSCA DOS PREDICADOS
+//Compara os nomes com strcmp: menor vai pra esquerda, maior pra direita
 
+// 1. CRIAR NÓ
 NoBST *bst_novo_no(const char *nome) {
     NoBST *no = calloc(1, sizeof(NoBST));
     if (!no) { fprintf(stderr, "Erro: sem memoria\n"); exit(1); }
@@ -11,6 +11,8 @@ NoBST *bst_novo_no(const char *nome) {
     return no;
 }
 
+// 2. INSERIR
+//Se o nome já existe não faz nada, só devolve a raiz
 NoBST *bst_inserir(NoBST *raiz, const char *nome) {
     int cmp;
     if (!raiz) return bst_novo_no(nome);
@@ -20,6 +22,7 @@ NoBST *bst_inserir(NoBST *raiz, const char *nome) {
     return raiz;
 }
 
+// 3. BUSCAR
 NoBST *bst_buscar(NoBST *raiz, const char *nome) {
     int cmp;
     if (!raiz) return NULL;
@@ -29,6 +32,8 @@ NoBST *bst_buscar(NoBST *raiz, const char *nome) {
     return raiz;
 }
 
+// 4. IMPRIMIR EM ORDEM (esquerda, nó, direita)
+//Assim os predicados saem em ordem alfabética
 void bst_imprimir(NoBST *raiz) {
     Clausula *c;
     int i, j;
@@ -42,7 +47,7 @@ void bst_imprimir(NoBST *raiz) {
             printf("%s%s", c->cabeca.args[i].valor,
                    i < c->cabeca.n_args - 1 ? ", " : "");
         printf(")");
-        if (c->tipo == REGRA) {
+        if (c->tipo == REGRA) { //regra: imprime o corpo depois do :-
             printf(" :- ");
             for (i = 0; i < c->n_subs; i++) {
                 printf("%s(", c->subs[i].nome);

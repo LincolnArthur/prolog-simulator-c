@@ -1,16 +1,16 @@
 #include "prolog.h"
 
-/* ================================================================
- * banco.c — operacoes no banco de dados e leitura de arquivo .txt
- * ================================================================ */
+//BANCO DE DADOS
+//A BST guarda os predicados e cada nó tem uma lista encadeada com as cláusulas
 
+// 1. CRIAR BANCO VAZIO
 BancoDados *bd_criar(void) {
     BancoDados *bd = calloc(1, sizeof(BancoDados));
     if (!bd) { fprintf(stderr, "Erro: sem memoria\n"); exit(1); }
     return bd;
 }
 
-/* Libera todas as clausulas de uma lista encadeada */
+// 2. LIBERAR A LISTA DE CLÁUSULAS
 static void liberar_clausulas(Clausula *c) {
     Clausula *prox;
     while (c) {
@@ -20,7 +20,8 @@ static void liberar_clausulas(Clausula *c) {
     }
 }
 
-/* Libera todos os nos da BST recursivamente */
+// 3. LIBERAR A ÁRVORE
+//Pós-ordem: libera os filhos antes do pai, senão perde o ponteiro
 static void liberar_bst(NoBST *no) {
     if (!no) return;
     liberar_bst(no->esq);
@@ -29,12 +30,14 @@ static void liberar_bst(NoBST *no) {
     free(no);
 }
 
-/* Limpa todo o banco de dados */
+// 4. LIMPAR O BANCO
 void bd_limpar(BancoDados *bd) {
     liberar_bst(bd->raiz);
     bd->raiz = NULL;
 }
 
+// 5. ADICIONAR CLÁUSULA (assert)
+//Acha o nó do predicado (ou cria) e coloca a cláusula no FIM da lista, pra manter a ordem do arquivo
 void bd_assert(BancoDados *bd, Clausula *c) {
     NoBST *no;
     Clausula *cur;
@@ -50,6 +53,7 @@ void bd_assert(BancoDados *bd, Clausula *c) {
     c->prox = NULL;
 }
 
+// 6. IMPRIMIR BANCO
 void bd_imprimir(BancoDados *bd) {
     if (!bd->raiz) {
         printf("  (banco vazio)\n");
@@ -58,6 +62,8 @@ void bd_imprimir(BancoDados *bd) {
     bst_imprimir(bd->raiz);
 }
 
+// 7. CARREGAR ARQUIVO .txt
+//Lê linha por linha, pula linha vazia e comentário (%)
 int bd_carregar_arquivo(BancoDados *bd, const char *caminho) {
     FILE *f;
     char linha[MAX_LINHA];
@@ -71,7 +77,7 @@ int bd_carregar_arquivo(BancoDados *bd, const char *caminho) {
         return 0;
     }
 
-    /* Limpa o banco antes de carregar */
+    //Apaga o que tinha antes de carregar o novo
     bd_limpar(bd);
 
     n_lidas = 0;

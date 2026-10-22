@@ -1,9 +1,9 @@
 #include "prolog.h"
 
-/* ================================================================
- * motor.c - motor de resolucao com backtracking
- * ================================================================ */
+//MOTOR DE RESOLUÇÃO (backtracking)
 
+// 1. IMPRIMIR SOLUÇÃO
+//Segue a cadeia de ligações (X = Y$1, Y$1 = zeus) até chegar no valor final
 static void imprimir_solucao(Ambiente *amb,
                               char vars_orig[][MAX_NOME], int n_vars) {
     int i, passos;
@@ -22,6 +22,9 @@ static void imprimir_solucao(Ambiente *amb,
     }
 }
 
+// 2. RESOLVER
+//Pega o primeiro objetivo e tenta cada cláusula do predicado dele
+//Quando acabam os objetivos achou uma solução, aí volta e tenta a próxima cláusula (backtracking)
 void resolver(BancoDados *bd, Atomo *objetivos, int n_obj,
               Ambiente amb, int prof,
               char vars_orig[][MAX_NOME], int n_vars_orig,
@@ -34,9 +37,9 @@ void resolver(BancoDados *bd, Atomo *objetivos, int n_obj,
     Clausula copia;
     Atomo fila[MAX_SUBS + 8];
 
-    if (prof > 30) return;
+    if (prof > 30) return; //limite pra não entrar em loop infinito
 
-    if (n_obj == 0) {
+    if (n_obj == 0) { //não sobrou objetivo = solução
         (*encontrou)++;
         printf("  Solucao %d:\n", *encontrou);
         imprimir_solucao(&amb, vars_orig, n_vars_orig);
@@ -56,12 +59,12 @@ void resolver(BancoDados *bd, Atomo *objetivos, int n_obj,
         copia    = *c;
         renomear_clausula(&copia, prof);
 
-        if (!unificar(atual, &copia.cabeca, &novo_amb)) continue;
+        if (!unificar(atual, &copia.cabeca, &novo_amb)) continue; //não casou, tenta a próxima
 
-        if (copia.tipo == FATO) {
+        if (copia.tipo == FATO) { //fato: só segue pro próximo objetivo
             resolver(bd, objetivos + 1, n_obj - 1,
                      novo_amb, prof + 1, vars_orig, n_vars_orig, encontrou);
-        } else {
+        } else { //regra: o corpo dela entra na frente dos objetivos que faltam
             total = copia.n_subs + (n_obj - 1);
             for (i = 0; i < copia.n_subs; i++)
                 fila[i] = copia.subs[i];

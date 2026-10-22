@@ -1,9 +1,9 @@
 #include "prolog.h"
 
-/* ================================================================
- * termos.c - construtores de Termo, Atomo e Clausula
- * ================================================================ */
+//TERMOS
+//Funções que montam Termo e Clausula
 
+// 1. CRIAR CONSTANTE
 Termo termo_const(const char *v) {
     Termo t;
     t.tipo = CONSTANTE;
@@ -12,6 +12,7 @@ Termo termo_const(const char *v) {
     return t;
 }
 
+// 2. CRIAR VARIÁVEL
 Termo termo_var(const char *v) {
     Termo t;
     t.tipo = VARIAVEL;
@@ -20,6 +21,8 @@ Termo termo_var(const char *v) {
     return t;
 }
 
+// 3. CRIAR FATO
+//Recebe quantidade variável de argumentos (por isso o ...)
 Clausula *novo_fato(const char *pred, int n, ...) {
     Clausula *c;
     va_list ap;
@@ -36,6 +39,8 @@ Clausula *novo_fato(const char *pred, int n, ...) {
     return c;
 }
 
+// 4. PEGAR AS VARIÁVEIS DE UM ÁTOMO
+//Sem repetir, ex: em irmao(X, X) só pega o X uma vez
 int extrair_vars(Atomo *a, char vars[][MAX_NOME], int max) {
     int n = 0;
     int i, j, duplicata;

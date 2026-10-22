@@ -1,11 +1,21 @@
 #include "prolog.h"
 
-/* ================================================================
- * main.c — menu interativo do banco de dados estilo Prolog
- * ================================================================ */
+//============================================================
+//UNIVASF - Universidade Federal do Vale do São Francisco
+//Algoritmos e Estruturas de Dados - Projeto 2
+//Prolog Simulator
+//============================================================
 
-#define ARQUIVO_PADRAO "banco.txt"
+//============================================================
+//Docente: Professora Dra. Ana Emilia de Melo Queiroz
+//Discentes: Arthur Lincoln Pinheiro Herculino Almeida
+//           Caio Benevides Pontes
+//============================================================
 
+#define ARQUIVO_PADRAO "banco.txt" //se der Enter sem digitar nada tenta abrir esse
+
+//LER UMA LINHA DO TECLADO
+//Usa fgets em vez de scanf pra conseguir ler com espaço, e tira o \n do final
 static void ler_linha(const char *prompt, char *buf, int max) {
     printf("%s", prompt);
     fflush(stdout);
@@ -13,6 +23,8 @@ static void ler_linha(const char *prompt, char *buf, int max) {
     buf[strcspn(buf, "\n")] = '\0';
 }
 
+// 1. FAZER CONSULTA
+//Separa as variáveis da consulta (X, Y...) pra mostrar o valor delas em cada solução
 static void executar_query(BancoDados *bd, const char *entrada) {
     Atomo q;
     char vars[MAX_VARS][MAX_NOME];
@@ -33,6 +45,7 @@ static void executar_query(BancoDados *bd, const char *entrada) {
         printf("  Total: %d solucao(oes).\n", encontrou);
 }
 
+// 2. ADICIONAR CLÁUSULA PELO MENU
 static void menu_adicionar(BancoDados *bd) {
     char buf[MAX_LINHA];
     Clausula *c;
@@ -60,6 +73,7 @@ static void menu_adicionar(BancoDados *bd) {
     }
 }
 
+// 3. MENU DE CONSULTA
 static void menu_query(BancoDados *bd) {
     char buf[MAX_LINHA];
 
@@ -80,6 +94,7 @@ static void menu_query(BancoDados *bd) {
     executar_query(bd, buf);
 }
 
+// 4. CARREGAR ARQUIVO .txt
 static void menu_carregar(BancoDados *bd) {
     char buf[MAX_LINHA];
 
@@ -91,6 +106,7 @@ static void menu_carregar(BancoDados *bd) {
     bd_carregar_arquivo(bd, buf);
 }
 
+// 5. MENU
 static void exibir_menu(void) {
     printf("\n");
     printf("  +------------------------------------------+\n");
@@ -111,7 +127,7 @@ int main(void) {
     char opcao[8];
     int  rodando;
 
-    bd = bd_criar();
+    bd = bd_criar(); //começa com o banco vazio
 
     rodando = 1;
     while (rodando) {
